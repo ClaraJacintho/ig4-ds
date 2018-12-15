@@ -1,26 +1,16 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
+joined <- read.csv("prepared_data.csv", header = TRUE)
+acidents  <- read.csv("incidents.csv", header = TRUE)
+incidents <- read.csv("acidents.csv", header = TRUE)
+respAprofInc <- read.csv("incidentsAp.csv", header = TRUE)
+respAprofAc <- read.csv("accidentsAp.csv", header = TRUE)
+
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
    
-  # output$distPlot <- renderPlot({
-  #   
-  #   # generate bins based on input$bins from ui.R
-  #   x    <- faithful[, 2] 
-  #   bins <- seq(min(x), max(x), length.out = input$bins + 1)
-  #   
-  #   # draw the histogram with the specified number of bins
-  #   hist(x, breaks = bins, col = 'darkgray', border = 'white')
-  #   
-  # })
+   output$nbfreq <- renderPlot({
+ 
+   })
   
 })
