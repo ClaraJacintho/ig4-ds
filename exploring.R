@@ -192,21 +192,70 @@ ggplot(respAprofInc, mapping = aes(x=respAprofInc$TEMPS)) + geom_bar()
 respAprofAc$TEMPS<- as.factor(respAprofAc$TEMPS)
 str(respAprofAc$TEMPS)
 
-#Number of acidents by the weather condition. Here each entry corresponds to a single incident
+#Number of accidents by the weather condition. Here each entry corresponds to a single accident
 ggplot(respAprofAc, mapping = aes(x=respAprofAc$TEMPS)) + geom_bar()
   #More accidents with wet/ weather. Events that happen during these conditions are more likely to become accidents?
 
 # __________________ TRAFIC ____________________________________________________________
 
-respAprofInc$TRAFIC <- as.factor(respAprofInc$TRAFIC)
+respAprofInc  <- respAprofInc %>% filter(respAprofInc$TRAFIC %in% c(1,2,3,4)  ) %>% droplevels() 
 str(respAprofInc$TRAFIC)
 
-#Number of incidents by the weather condition. Here each entry corresponds to a single incident
-ggplot(respAprofInc, mapping = aes(x=respAprofInc$TEMPS)) + geom_bar()
-#Most incidents happen during dry weather
+#Number of incidents by the traffic condition. Here each entry corresponds to a single incident
+ggplot(respAprofInc, mapping = aes(x=respAprofInc$TRAFIC)) + geom_bar()
+  #Most incidents happen with very fluid/ fluid
 
-respAprofAc$TEMPS<- as.factor(respAprofAc$TEMPS)
-str(respAprofAc$TEMPS)
+respAprofAc  <- respAprofAc %>% filter(TRAFIC %in% c(1,2,3,4)  ) %>% droplevels() 
+str(respAprofAc$TRAFIC)
 
-#Number of acidents by the weather condition. Here each entry corresponds to a single incident
-ggplot(respAprofAc, mapping = aes(x=respAprofAc$TEMPS)) + geom_bar()
+#Number of accidents by the traffic condition. Here each entry corresponds to a single accident
+ggplot(respAprofAc, mapping = aes(x=respAprofAc$TRAFIC)) + geom_bar()
+  #A greater proportion of accidents happen with slower traffic
+
+# __________________ TRAJET ____________________________________________________________
+respAprofInc$TRAJET<- as.factor(respAprofInc$TRAJET)
+str(respAprofInc$TRAJET)
+
+#Number of incidents by how habitual the path taken was. Here each entry corresponds to a single incident
+ggplot(respAprofInc, mapping = aes(x=respAprofInc$TRAJET)) + geom_bar()
+
+respAprofAc <- filter(respAprofAc, TRAJET %in% c(1,2,3))
+respAprofAc$TRAJET <- as.factor(respAprofAc$TRAJET)
+str(respAprofAc$TRAJET)
+
+#Number of incidents by how habitual the path taken was. Here each entry corresponds to a single incident
+ggplot(respAprofAc, mapping = aes(x=respAprofAc$TRAJET)) + geom_bar()
+
+# __________________ TypeRoute ____________________________________________________________
+
+respAprofInc <- respAprofInc %>% filter(as.integer(TYPE_ROUTE) < 7  ) %>% droplevels() 
+str(respAprofInc$TYPE_ROUTE)
+
+#Number of incidents by the type of road. Here each entry corresponds to a single incident
+ggplot(respAprofInc, mapping = aes(x=respAprofInc$TYPE_ROUTE)) + geom_bar()
+
+respAprofAc<- respAprofAc %>% filter(as.integer(TYPEROUTE) < 7  ) %>% droplevels() 
+str(respAprofAc$TYPEROUTE)
+
+#Number of incidents by the type of road. Here each entry corresponds to a single incident
+ggplot(respAprofAc, mapping = aes(x=respAprofAc$TYPEROUTE)) + geom_bar()
+  #Accidents occur more in cities
+
+
+# __________________ Vitesse ____________________________________________________________
+
+#Nb of incidents x speed
+ggplot(respAprofInc, mapping = aes(x=VITESSE)) + geom_area(stat = "bin")
+mean(respAprofInc$VITESSE) #64.3739
+median(respAprofInc$VITESSE) #60
+
+#Nb of acncidents x speed
+ggplot(respAprofAc, mapping = aes(x=VITESSE)) +  geom_area(stat = "bin")
+mean(respAprofAc$VITESSE) #47.25942
+median(respAprofAc$VITESSE) #45
+
+  #QUE??
+
+
+
+
