@@ -267,6 +267,7 @@ shinyServer(function(input, output) {
 #___________________________ SPEED ____________________________________________________________________________
    output$speedxinc <- renderPlot({
      ggplot(respAprofInc, mapping = aes(x=VITESSE)) + geom_area(stat = "bin", fill="deepskyblue4")+ 
+       geom_vline(xintercept =mean(respAprofInc$VITESSE) ) +
        ylab("Number of incidents")+ 
        xlab("Speed")+
        theme_bw()
@@ -274,6 +275,7 @@ shinyServer(function(input, output) {
    
    output$speedxac <- renderPlot({
      ggplot(respAprofAc, mapping = aes(x=VITESSE)) +  geom_area(stat = "bin", fill="deepskyblue4")+
+       geom_vline(xintercept =mean(respAprofAc$VITESSE) ) +
        ylab("Number of accidents")+ 
        xlab("Type of Road")+
        theme_bw()
