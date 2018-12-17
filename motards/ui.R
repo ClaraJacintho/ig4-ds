@@ -24,7 +24,7 @@ shinyUI(fluidPage(
           menuItem("Qualification data", icon = icon("th"), tabName = "qual",
                    menuItem('QQual',
                             tabName = 'qqual',
-                            icon = icon('chart-bar')
+                            icon = icon('motorcycle')
                    ),
                    menuItem('Frequency',
                             tabName = 'freq',
@@ -48,7 +48,7 @@ shinyUI(fluidPage(
           menuItem("The conditions data", icon = icon("th"), tabName = "qual",
                    menuItem('Aprofondissement',
                             tabName = 'deep',
-                            icon = icon('line-chart')
+                            icon = icon('motorcycle')
                    ),
                    menuItem('Time of the week',
                             tabName = 'semaine',
@@ -62,10 +62,6 @@ shinyUI(fluidPage(
                             tabName = 'we',
                             icon = icon('line-chart')
                    ),
-                   # menuItem('Traffic',
-                   #          tabName = 'trafic',
-                   #          icon = icon('line-chart')
-                   #),
                    menuItem('Journey',
                             tabName = 'trajet',
                             icon = icon('line-chart')
@@ -96,12 +92,32 @@ shinyUI(fluidPage(
                   h2("Introduction"),
                   fluidRow(
                      box(width=12, 
-                        p("This project is a partnership between Polytech Montpellier and the Mutuelle des Motards with the objective of analizing data collected by the 2RouesLab to gain insight into the profiles of bikers. 
+                        p("This project is a partnership between Polytech Montpellier and the Mutuelle des Motards with the objective of analyzing data collected by the 2RouesLab to gain insight into the profiles of bikers. 
                          Our group took a deeper look into the relationship between incidents and accidents (subject number 4)."),
-                         p("We first analized the data from the 'QQual'questionaire, to understand the profile of the drivers through data such as the frequency of use of the motorcycle, number of kilometers ridden and more."),
-                         p("We then looked into the 'Aprofondissement' questionaires, that went deeper into the causes of a particular accident or incident, to help us understand what differentiates the two.")
+                         p("We first analyzed the data from the 'QQual' questionnaire, to understand the profile of the drivers through data such as the frequency of use of the motorcycle, number of kilometers ridden and more."),
+                         p("We then looked into the 'Aprofondissement' questionnaires, that went deeper into the causes of a particular accident or incident, to help us understand what differentiates the two.")
                      )
-                  )
+                  ),
+                  h3("The Developers"),
+                  fluidRow(
+                            box(width = 4, status = "primary",
+                                tags$img(src='clara.jpg',height=250, style="display: block; margin-left: auto; margin-right: auto;" ),
+                                p(tags$b(h4("Maria Clara M. Jacintho"))), align = "center",
+                                tags$b(a(href="https://github.com/SpaceCenturion/",  target="_blank", "Github"))),
+                            
+                             box(width = 4, status = "primary",
+                               tags$img(src='delton.jpg',height=250,  style="display: block; margin-left: auto; margin-right: auto;"),
+                                 p(tags$b(h4("Delton Vaz"))), align = "center",
+                               tags$b(a(href="https://github.com/deltonvaz/",  target="_blank", "Github"))),
+                            
+                             box(width = 4,status = "primary",
+                               tags$img(src='alex.jpg',height=250,  style="display: block; margin-left: auto; margin-right: auto;"),
+                                 p(tags$b(h4("Alexandre Kueny"))), align = "center",
+                               tags$b(a(href="https://github.com/AlexandreKueny",  target="_blank", "Github")))
+                  ),
+                      actionButton(inputId='ab1', label="See this project on Github", 
+                                               icon = icon("github"), 
+                                               onclick ="window.open('https://github.com/SpaceCenturion/ig4-ds', '_blank')")
           ),
           tabItem(tabName = "dp",
                   h2("Data preparation and initial analysis"),
@@ -344,23 +360,6 @@ shinyUI(fluidPage(
                     )
                   )
           ),
-          # tabItem(tabName = "trafic",
-          #         h2("The conditions of traffic"),
-          #         fluidRow(
-          #           box(title = "Number of incidents by the traffic", status = "primary", solidHeader = TRUE,
-          #               plotOutput("trafficxinc")
-          #           ),
-          #           box(title = "Number of accidents by the traffic", status = "primary", solidHeader = TRUE,
-          #               plotOutput("trafficxac")
-          #           )
-          #         ),
-          #         fluidRow(
-          #           box(width = 12,
-          #               p("A larger proportion of accidents happen on paths that are know but not habitual, compared to incidents. The fact that they are known may lower the guard
-          #                 of many drivers, who are then surprised by things they did not know or forgot.")
-          #           )
-          #         )
-          # ),
           tabItem(tabName = "tr",
                   h2("The type of road"),
                   fluidRow(
@@ -397,14 +396,14 @@ shinyUI(fluidPage(
           ),
         
         tabItem(tabName = "ap_tree",
-                h2("Decision tree Aprofondissement data"),
+                h2("Decision tree Approfondissement data"),
                 fluidRow(
                   box(title = "Decision Tree", status = "primary", solidHeader = TRUE,
                       plotOutput("aptree")
                   ),
                  
                   box(
-                      p("We decided to apply the lesson we learned in the Machine Learing course by crating a decision tree with the data from the 'Aprofondissement' questionnaire."),
+                      p("We decided to apply the lesson we learned in the Machine Learning course by creating a decision tree with the data from the 'Approfondissement' questionnaire."),
                       p("To do so, we created a table with the 6 previously analysed characteristics:"),
                       tags$ul(
                         tags$li("Time of the week"),
@@ -414,9 +413,10 @@ shinyUI(fluidPage(
                         tags$li("The type of road"),
                         tags$li("The speed")
                       ),
-                      p("And added a colum acident_incident to indicate wether the event was an accident or an incident. This allows us to use the library 'rpart'
+                      p("And added a column acident_incident to indicate whether the event was an accident or an incident. This allows us to use the library 'rpart'
                         to easily create a decision tree."),
-                      p("As we can see, the main characteristics that diferenciates an incident from an accident is the speed, and the weather.")
+                      p("As we can see, the main characteristics that differentiates an incident from an accident is the speed, and the weather. A slower speed
+                        and wet or severe weather indicates an accident!")
                   )
                 )       
         )
