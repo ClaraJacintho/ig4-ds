@@ -1,6 +1,9 @@
 library(shiny)
 library(tidyverse)
 library(RColorBrewer)
+library(rpart)
+library(rattle)
+df <- read.csv("ap_tree.csv")
 joined <- read.csv("prepared_data.csv", header = TRUE)
 acidents  <- read.csv("accidents.csv", header = TRUE)
 incidents <- read.csv("incidents.csv", header = TRUE)
@@ -27,6 +30,13 @@ respAprofAc$TEMPS<- as.factor(respAprofAc$TEMPS)
 
 respAprofInc$TRAJET<- as.factor(respAprofInc$TRAJET)
 respAprofAc$TRAJET <- as.factor(respAprofAc$TRAJET)
+
+df$semaine <- as.factor(df$semaine)
+df$momentjourne <- as.factor(df$momentjourne)
+df$temps <- as.factor(df$temps)
+df$trajet <- as.factor(df$trajet)
+df$typeroute <- as.factor(df$typeroute)
+df$acident_incident<- as.factor(df$acident_incident)
 
 shinyServer(function(input, output) {
    
@@ -279,5 +289,12 @@ shinyServer(function(input, output) {
        ylab("Number of accidents")+ 
        xlab("Type of Road")+
        theme_bw()
+   })
+#___________________________ TREE ____________________________________________________________________________
+   output$aptree <- renderPlot({
+     ap_tree <- rpart(acident_incident ~ semaine+momentjourne+temps+trajet+typeroute+vitesse,
+                      method="class", data=df)
+     rattle::fancyRpartPlot(ap_tree, sub="" ,palettes="YlGnBu")
+     
    })
 })

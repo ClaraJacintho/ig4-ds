@@ -78,6 +78,12 @@ shinyUI(fluidPage(
                             tabName = 'speed',
                             icon = icon('line-chart')
                    )
+          ),
+          menuItem("Machine Learning", icon = icon("th"), tabName = "nl",
+                   menuItem('Aprofondissement tree',
+                            tabName = 'ap_tree',
+                            icon = icon('tree')
+                   )
           )
           
         )
@@ -101,13 +107,13 @@ shinyUI(fluidPage(
                   h2("Data preparation and initial analysis"),
                   fluidRow(
                     box(width=12, 
-                        p("We first prepared the data in Data Iku. We created a variable callet 'TOTAL_INC' for the incidents and 'TOTAL_AC' for the accidents.
+                        p("We first prepared the data in Dataiku. We created a variable called 'TOTAL_INC' for the incidents and 'TOTAL_AC' for the accidents.
                            This variable is the sum of all the times that person was in an incident/accident."),
-                        p("For the initial analysis we wanted to see if there was a correlation beteween the total number of inicidents ant the total number of accidents a person has. For
+                        p("For the initial analysis we wanted to see if there was a correlation between the total number of incidents and the total number of accidents a person has. For
                           this, we used Data Iku to 'join' the incident and accident tables, using the QQUAL response as the identifier. This gave us a table with only people that answer both
-                          questionaires, so we can compare  the numbers of an individual. "),
-                        p("We then proceded to measure the corralation of the two variables using ", code("cor(joined$TOTAL_AC, joined$TOTAL_INC)")),
-                        p("The result measured was ", tags$b("0.04419411."), " This means the variables are poistively but ",  tags$em("very"), " weakly correlated, so the number of incidents a person has 
+                          questionnaires, so we can compare  the numbers of an individual. "),
+                        p("We then proceeded to measure the correlation of the two variables using ", code("cor(joined$TOTAL_AC, joined$TOTAL_INC)")),
+                        p("The result measured was ", tags$b("0.04419411."), " This means the variables are positively but ",  tags$em("very"), " weakly correlated, so the number of incidents a person has 
                           cannot predict their number of accidents.")
                         
                     )
@@ -119,14 +125,14 @@ shinyUI(fluidPage(
                   h2("The QQUAL data"),
                   fluidRow(
                     box(width=12,
-                        p("For this part of the project, we chose some of the questions of the qualitative questionaire that we tought would have the most impact in the number of accidents/incidents a person had. Those were:"),
+                        p("For this part of the project, we chose some of the questions of the qualitative questionnaire that we thought would have the most impact in the number of accidents/incidents a person had. Those were:"),
                         tags$ul(
                           tags$li("Frequency of use - FREQ1"),
                           tags$li("How the motorcycle is used - USAGE1"),
                           tags$li("Number of kilometers of use of the main motorcycle - NBKM1"),
                           tags$li("Number of CCs of the main motorcycle - CYLINDREE1")
                         ),
-                        p("We then created some graphs and coonducted a correlation or ANOVA test to see if there was indeed any relationship between the variable and the quantity of incidents/accidents")
+                        p("We then created some graphs and conducted a correlation or ANOVA test to see if there was indeed any relationship between the variable and the quantity of incidents/accidents")
                         )
                   )
           ),
@@ -138,7 +144,7 @@ shinyUI(fluidPage(
                       box(title = "How often people use their motorcycles", status = "primary", solidHeader = TRUE,
                           plotOutput("nbfreq")
                           ),
-                      box(p("In this graph we can see the number of people who use their motorcycles once a week is roughly the same as thhe number of people that use it a couple of 
+                      box(p("In this graph we can see the number of people who use their motorcycles once a week is roughly the same as the number of people that use it a couple of 
                             times a week, with these two groups being the majority of users.") )
                     ),
                     fluidRow(
@@ -152,7 +158,7 @@ shinyUI(fluidPage(
                     fluidRow(
                       box(width=12,
                         p("Here we can see that, even though the number of people that use their bikes daily and weekly is the same, those who use it daily have a greater number of incidents/accidents in general."),
-                        p("That, of course, makes sense since they drive as much as 5 times more then their weekly counterparts"))
+                        p("That, of course, makes sense since they drive as much as 5 times more than their weekly counterparts"))
                     ),
                     fluidRow(
                       box(title = "Boxplot of the Incidents versus Frequency of use", status = "primary", solidHeader = TRUE,
@@ -205,8 +211,8 @@ shinyUI(fluidPage(
                     fluidRow(
                       box(width = 12,
                         p("Again with values of 3.55e-06 for the incidents and 1.35e-05 for the accidents, we can see a relationship between the usage of the motorcycle 
-                          and the total nulber of incidents/accidents."),
-                        p("The boxplot shows once again a great number of outliers that may have skexed the result."))
+                          and the total number of incidents/accidents."),
+                        p("The boxplot shows once again a great number of outliers that may have skewed the result."))
                     )
             ),
           
@@ -222,7 +228,7 @@ shinyUI(fluidPage(
                     ),
                     fluidRow(
                       box(width =12,
-                        p("For this variable, plotted the total incidents/accidents by the number of kilometers of the main motorcycle. The is no noticible trend"),
+                        p("For this variable, plotted the total incidents/accidents by the number of kilometers of the main motorcycle. There is no noticeable trend"),
                         p("We then measured the correlation between the total number of incidents/accidents and the total number of kilometers. For the incidents the correlation 
                           was", tags$b("0.08422457"), ", and for the accidents",  tags$b("0.1371557. "),  "Both positive but weak.")
                         )
@@ -241,11 +247,11 @@ shinyUI(fluidPage(
                     ),
                     fluidRow(
                       box(width =12,
-                            p("For this analysis, we first created another column 'isScooter', to see if a determined motrocycle was a", tags$em('Scooter'), "that is, 
-                              under 125 CC, that requires a different driver's license than those above 125 CC, which are ", tags$em("Motorcycles")),
-                          p("We once again mesured the correlation an the results were", tags$b(" -0.06999536"), " for the incidents and ", tags$b("0.08871506"), " for
-                            the accidents. The negative correlation with the incidents and positive with the accidents could indicate that lower CC vehicles are less prone to 
-                            accidents than those with higher CC, where events that would be incidents become accidents, but the correlation is too weak to make any strong claims.")
+                            p("For this analysis, we first created another column 'isScooter', to see if a determined vehicle was a", tags$em('Scooter'), "that is, 
+                              under 125 CC, that requires a different driver's license than those above 125 cc, which are ", tags$em("Motorcycles")),
+                          p("We once again measured the correlation an the results were", tags$b(" -0.06999536"), " for the incidents and ", tags$b("0.08871506"), " for
+                            the accidents. The negative correlation with the incidents and positive with the accidents could indicate that lower cc vehicles are less prone to 
+                            accidents than those with higher cc, where events that would be incidents become accidents, but the correlation is too weak to make any strong claims.")
                           )
                     )
             ),
@@ -254,7 +260,7 @@ shinyUI(fluidPage(
                   h2("The Approfondissement data"),
                   fluidRow(
                     box(width =12,
-                      p("For the 'Approfondissement' part of the data, we decided to look into the following variables:"),
+                      p("For the 'Approfondissement' questionnaire, we decided to look into the following variables:"),
                       tags$ul(
                         tags$li("Time of the week - SEMAINE"),
                         tags$li("Time of the day - MOMENT_JOURNEE"),
@@ -265,9 +271,9 @@ shinyUI(fluidPage(
                         tags$li("The speed - VITESSE")
                       ),
                       p("These variables describe the conditions of one particular event. The will help us determine if there are any conditions of the road or of
-                        how people drive that help incidents bcecome accidents."),
-                      p("We did not find it pertinet to try to establish a relationship bbetween these values and the total number of incidents/accidents of a person,
-                        since they describe one particular event chosen by the interviewee.")
+                        how people drive that help incidents become accidents."),
+                      p("We did not find it pertinent to try to establish a relationship between these values and the total number of incidents/accidents of a person,
+                        since they describe only one particular event chosen by the interviewee.")
                       )
                   )
           ),
@@ -284,7 +290,7 @@ shinyUI(fluidPage(
                     fluidRow(
                       box(width = 12,
                           p("We can observe that a larger proportion of accidents happen on the weekend compared to incidents. That may be because more inexperienced riders
-                            go out on the weekend as entretainement and do not have the knowledge to prevent the event from becoming an accident.")
+                            go out on the weekend as entertainment and do not have the knowledge to prevent the event from becoming an accident.")
                           )
                     )
             ),
@@ -383,12 +389,37 @@ shinyUI(fluidPage(
                   ),
                   fluidRow(
                     box(width = 12,
-                        p("In this graph we can see that, contrary to what one would believe, accidents happen at a slower speed than incidents. While the mean
+                        p("In this graph we can see that, contrary to what one would believe, most accidents happen at a slower speed than incidents. While the mean
                           speed for an accident was ", tags$b("47.26"), ", the mean speed for incidents was ", tags$b("64.37. "), "This may come from the fact that
                           when people are driving fast they pay more attention and drive more carefully.")
                     )
                   )
-          )
+          ),
+        
+        tabItem(tabName = "ap_tree",
+                h2("Decision tree Aprofondissement data"),
+                fluidRow(
+                  box(title = "Decision Tree", status = "primary", solidHeader = TRUE,
+                      plotOutput("aptree")
+                  ),
+                 
+                  box(
+                      p("We decided to apply the lesson we learned in the Machine Learing course by crating a decision tree with the data from the 'Aprofondissement' questionnaire."),
+                      p("To do so, we created a table with the 6 previously analysed characteristics:"),
+                      tags$ul(
+                        tags$li("Time of the week"),
+                        tags$li("Time of the day"),
+                        tags$li("The weather"),
+                        tags$li("How usual was the journey"),
+                        tags$li("The type of road"),
+                        tags$li("The speed")
+                      ),
+                      p("And added a colum acident_incident to indicate wether the event was an accident or an incident. This allows us to use the library 'rpart'
+                        to easily create a decision tree."),
+                      p("As we can see, the main characteristics that diferenciates an incident from an accident is the speed, and the weather.")
+                  )
+                )       
+        )
             
         )
         
